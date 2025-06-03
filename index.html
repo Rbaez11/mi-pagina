@@ -1,55 +1,88 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Melissa & Rodrigo</title>
-    <link rel="stylesheet" href="./Melissa & Rodrigo_files/styles.css">
+    <link rel="stylesheet" href="./Melissa_Rodrigo_files/styles.css" />
 </head>
 <body>
     <div class="lock-screen" id="lock-screen">
         <h2>Ingresa la contraseña</h2>
-        <input type="password" id="password" placeholder="DD/MM/AAAA">
+        <input type="password" id="password" placeholder="DD/MM/AAAA" />
         <button onclick="checkPassword()">Entrar</button>
         <p id="error-msg"></p>
     </div>
 
     <div class="main-content" id="main-content" style="display:none;">
         <header>
-            <img src="./Melissa & Rodrigo_files/portada.png" alt="Portada Melissa y Rodrigo" class="cover-img">
+            <img src="./Melissa_Rodrigo_files/portada.png" alt="Portada Melissa y Rodrigo" class="cover-img" />
             <h1>Melissa & Rodrigo</h1>
             <p style="margin-top: 1em; font-size: 1.2em; color: #444; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
-                De verdad esperabas que exista alguna razón para irme? No amor, no existe ninguna razón, solo quiero estar toda la vida contigo, y cualquier problema que tengamos o obstáculos que se presenten en nuestro camino, podemos solucionarlo juntos, porque entendí amor que no te quiero para un rato, no amor, no quiero ser pasajero. <br><br>
-                Quiero pasar el resto de mis días contigo. Por eso valoro tanto la comunicación entre nosotros y que siempre busquemos la manera de ser mejores ambos. <br><br>
+                De verdad esperabas que exista alguna razón para irme? No amor, no existe ninguna razón, solo quiero estar toda la vida contigo, y cualquier problema que tengamos o obstáculos que se presenten en nuestro camino, podemos solucionarlo juntos, porque entendí amor que no te quiero para un rato, no amor, no quiero ser pasajero. <br /><br />
+                Quiero pasar el resto de mis días contigo. Por eso valoro tanto la comunicación entre nosotros y que siempre busquemos la manera de ser mejores ambos. <br /><br />
                 ¡Te amo hoy y siempre mi niña!💛
             </p>
-            <p class="phrase">Entre miles de caminos, elegimos el mismo. Melissa & Rodrigo, desde el 13/02/2022 para siempre.</p>
+            <p class="phrase">
+                Entre miles de caminos, elegimos el mismo. Melissa & Rodrigo, desde el 13/02/2022 para siempre.
+            </p>
         </header>
 
         <section class="gallery">
             <h2>Nuestros momentos</h2>
             <div class="photos" id="photoGallery">
-                <!-- tus imágenes siguen aquí igual que antes -->
-                <!-- ... -->
+                <!-- Aquí puedes colocar las fotos -->
             </div>
         </section>
 
         <section class="music" style="margin-top: 2em;">
             <h2>Nuestra canción favorita</h2>
             <audio controls loop style="width: 100%; max-width: 600px;">
-                <source src="media/music/cancion.mp3" type="audio/mpeg">
+                <source src="media/music/cancion.mp3" type="audio/mpeg" />
                 Tu navegador no soporta la reproducción de audio.
             </audio>
         </section>
 
         <section class="videos" style="margin-top: 2em;">
             <h2>Videos especiales</h2>
-            <!-- 10 videos del 1 al 10 -->
-            <video controls style="width: 100%; max-width: 600px; margin-top: 1em;">
-                <source src="media/videos/video1.mp4" type="video/mp4">
-            </video>
-            <video controls style="width: 100%; max-width: 600px; margin-top: 1em;">
-                <source src="media/videos/video2.mp4" type="video/mp4">
-            </video>
-            <video controls style="width: 100%; max-width: 600px; margin-top: 1em;">
-                <source src="media/videos/video3.mp4" type="video/mp
+            <div id="videosContainer"></div>
+        </section>
+    </div>
+
+    <script>
+        // Función para verificar la contraseña (ejemplo sencillo)
+        function checkPassword() {
+            const input = document.getElementById("password").value;
+            const lockScreen = document.getElementById("lock-screen");
+            const mainContent = document.getElementById("main-content");
+            const errorMsg = document.getElementById("error-msg");
+
+            if (input === "13/02/2022") {
+                lockScreen.style.display = "none";
+                mainContent.style.display = "block";
+            } else {
+                errorMsg.textContent = "Contraseña incorrecta, intenta de nuevo.";
+            }
+        }
+
+        // Carga dinámica de videos
+        const videosContainer = document.getElementById("videosContainer");
+        const totalVideos = 10; // si son 10 videos numerados del 1 al 10
+
+        for (let i = 1; i <= totalVideos; i++) {
+            const video = document.createElement("video");
+            video.controls = true;
+            video.style.width = "100%";
+            video.style.maxWidth = "600px";
+            video.style.marginTop = "1em";
+
+            const source = document.createElement("source");
+            source.src = `media/videos/video${i}.mp4`;
+            source.type = "video/mp4";
+
+            video.appendChild(source);
+            videosContainer.appendChild(video);
+        }
+    </script>
+</body>
+</html>
