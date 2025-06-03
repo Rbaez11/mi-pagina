@@ -1,0 +1,45 @@
+function checkPassword() {
+    const password = document.getElementById('password').value;
+    if (password === '13/02/2022') {
+        document.getElementById('lock-screen').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+    } else {
+        document.getElementById('error-msg').innerText = 'Contraseña incorrecta. Intenta de nuevo.';
+    }
+}
+
+
+function loadGallery() {
+    const gallery = document.getElementById("photoGallery");
+    for (let i = 1; i <= 150; i++) {
+        const img = document.createElement("img");
+        img.src = `assets/images/foto${i}.jpg`;
+        img.alt = `foto${i}`;
+        img.style.width = "100%";
+        img.style.borderRadius = "8px";
+        img.onerror = function() {
+            this.remove(); // elimina la imagen si no se puede cargar
+        };
+        gallery.appendChild(img);
+    }
+    const videoSection = document.getElementById("videoGallery");
+    if (videoSection) {
+        for (let j = 1; j <= 50; j++) {
+            const video = document.createElement("video");
+            video.src = `assets/videos/video${j}.mp4`;
+            video.controls = true;
+            video.style.width = "100%";
+            video.style.marginTop = "20px";
+            video.onerror = function() {
+                this.remove();
+            };
+            videoSection.appendChild(video);
+        }
+    }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById("photoGallery")) {
+        loadGallery();
+    }
+});
