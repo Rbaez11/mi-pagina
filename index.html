@@ -1,61 +1,336 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Melissa & Rodrigo</title>
-    <link rel="stylesheet" href="./media/Melissa_Rodrigo_files/styles.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Melissa & Rodrigo</title>
+<style>
+    /* Reset básico */
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f9d5d3; /* rosa pastel */
+        color: #bfa14f; /* dorado suave */
+        margin: 0;
+        padding: 1em 2em 3em;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        overflow-x: hidden;
+    }
+    header, section {
+        width: 100%;
+        max-width: 900px;
+        background: rgba(255 255 255 / 0.85);
+        padding: 2em;
+        margin-bottom: 2em;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(191,161,79,0.15);
+        backdrop-filter: saturate(180%) blur(10px);
+        color: #bfa14f;
+        position: relative;
+        z-index: 1;
+    }
+    h1, h2 {
+        text-align: center;
+        color: #bfa14f;
+        margin-bottom: 1em;
+        user-select: none;
+        font-weight: 700;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+    }
+    .cover-img {
+        width: 100%;
+        max-width: 600px;
+        display: block;
+        margin: 0 auto 1.5em;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(191,161,79,0.4);
+        object-fit: cover;
+    }
+    p {
+        font-size: 1.1em;
+        line-height: 1.6;
+        color: #a8851f; /* un dorado más oscuro para texto */
+        text-align: center;
+        user-select: text;
+    }
+    .phrase {
+        font-style: italic;
+        color: #d1b870;
+        margin-top: 1em;
+        font-size: 1em;
+        text-align: center;
+        text-shadow: 0 0 3px #fff3b0;
+    }
+    /* Lock screen */
+    .lock-screen {
+        max-width: 360px;
+        margin: 8em auto;
+        padding: 2.5em 3em;
+        box-shadow: 0 5px 20px rgba(191,161,79,0.4);
+        border-radius: 20px;
+        background: rgba(255 255 255 / 0.9);
+        text-align: center;
+        user-select: none;
+        color: #bfa14f;
+        position: relative;
+        z-index: 1;
+    }
+    .lock-screen h2 {
+        margin-bottom: 1.5em;
+        color: #bfa14f;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.12);
+    }
+    input[type="password"] {
+        width: 90%;
+        padding: 0.75em 1em;
+        font-size: 1.1em;
+        border: 2px solid #d7b86e;
+        border-radius: 12px;
+        transition: border-color 0.3s;
+        outline-offset: 2px;
+        user-select: text;
+        color: #7a6013;
+        font-weight: 600;
+        background: #fff8e1;
+        box-shadow: inset 0 1px 3px rgba(191,161,79,0.25);
+    }
+    input[type="password"]:focus {
+        border-color: #ffca28;
+        background: #fff9c4;
+        box-shadow: 0 0 8px #ffca28;
+        color: #5a3e00;
+    }
+    button {
+        margin-top: 1.5em;
+        padding: 0.75em 2.5em;
+        font-size: 1.1em;
+        border: none;
+        background-color: #bfa14f;
+        color: white;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 700;
+        transition: background-color 0.3s ease;
+        user-select: none;
+        box-shadow: 0 4px 12px rgba(191,161,79,0.6);
+        text-shadow: 0 0 3px #6f5c11;
+    }
+    button:hover {
+        background-color: #d1b870;
+        box-shadow: 0 6px 16px rgba(209,184,112,0.8);
+    }
+    #error-msg {
+        margin-top: 1em;
+        height: 1.3em;
+        color: #e74c3c;
+        font-weight: 600;
+        user-select: none;
+        text-shadow: none;
+    }
+
+    /* Galería de fotos */
+    .photos {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1em;
+        justify-items: center;
+    }
+    .photos img {
+        width: 180px;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 14px;
+        box-shadow: 0 6px 16px rgba(191,161,79,0.3);
+        cursor: pointer;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        user-select: none;
+        filter: drop-shadow(0 0 1px #bfa14f);
+    }
+    .photos img:hover {
+        transform: scale(1.1);
+        box-shadow: 0 12px 25px rgba(191,161,79,0.6);
+        filter: drop-shadow(0 0 6px #d1b870);
+    }
+
+    /* Música */
+    audio {
+        width: 100%;
+        max-width: 600px;
+        border-radius: 16px;
+        box-shadow: 0 6px 15px rgba(191,161,79,0.3);
+        user-select: none;
+        filter: drop-shadow(0 0 2px #bfa14f);
+    }
+
+    /* Videos */
+    .videos {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5em;
+    }
+    .videos video {
+        width: 100%;
+        border-radius: 18px;
+        box-shadow: 0 8px 20px rgba(191,161,79,0.3);
+        user-select: none;
+        outline: none;
+        filter: drop-shadow(0 0 3px #bfa14f);
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+        .videos {
+            grid-template-columns: 1fr;
+        }
+        .photos img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    /* Decoraciones florales minimalistas */
+    body::before,
+    body::after {
+        content: "";
+        position: fixed;
+        pointer-events: none;
+        z-index: 0;
+        background-repeat: no-repeat;
+        background-size: contain;
+        opacity: 0.15;
+        filter: drop-shadow(0 0 2px #d1b870);
+    }
+    body::before {
+        top: 10px;
+        left: 10px;
+        width: 120px;
+        height: 120px;
+        background-image: url('https://cdn-icons-png.flaticon.com/512/616/616408.png'); /* flor minimalista */
+    }
+    body::after {
+        bottom: 20px;
+        right: 20px;
+        width: 160px;
+        height: 160px;
+        background-image: url('https://cdn-icons-png.flaticon.com/512/616/616408.png'); /* misma flor para simetría */
+        transform: rotate(180deg);
+    }
+</style>
 </head>
 <body>
-    <div class="lock-screen" id="lock-screen">
-        <h2>Ingresa la contraseña</h2>
-        <input type="password" id="password" placeholder="DD/MM/AAAA" />
-        <button onclick="checkPassword()">Entrar</button>
-        <p id="error-msg"></p>
-    </div>
 
-    <div class="main-content" id="main-content" style="display:none;">
-        <header>
-            <img src="./media/Melissa_Rodrigo_files/portada.png" alt="Portada Melissa y Rodrigo" class="cover-img" />
-            <h1>Melissa & Rodrigo</h1>
-            <p style="margin-top: 1em; font-size: 1.2em; color: #444; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
-                De verdad esperabas que exista alguna razón para irme? No amor, no existe ninguna razón, solo quiero estar toda la vida contigo, y cualquier problema que tengamos o obstáculos que se presenten en nuestro camino, podemos solucionarlo juntos, porque entendí amor que no te quiero para un rato, no amor, no quiero ser pasajero. <br /><br />
-                Quiero pasar el resto de mis días contigo. Por eso valoro tanto la comunicación entre nosotros y que siempre busquemos la manera de ser mejores ambos. <br /><br />
-                ¡Te amo hoy y siempre mi niña!💛
-            </p>
-            <p class="phrase">Entre miles de caminos, elegimos el mismo. Melissa & Rodrigo, desde el 13/02/2022 para siempre.</p>
-        </header>
+<div class="lock-screen" id="lock-screen">
+    <h2>Ingresa la contraseña</h2>
+    <input type="password" id="password" placeholder="DD/MM/AAAA" autocomplete="off" />
+    <button onclick="checkPassword()">Entrar</button>
+    <p id="error-msg"></p>
+</div>
 
-        <section class="gallery">
-            <h2>Nuestros momentos</h2>
-            <div class="photos" id="photoGallery">
-                <!-- Aquí van tus imágenes -->
-            </div>
-        </section>
+<div class="main-content" id="main-content" style="display:none;">
+    <header>
+        <img src="./media/Melissa_Rodrigo_files/portada.png" alt="Portada Melissa y Rodrigo" class="cover-img" />
+        <h1>Melissa & Rodrigo</h1>
+        <p>
+            De verdad esperabas que exista alguna razón para irme? No amor, no existe ninguna razón, solo quiero estar toda la vida contigo, y cualquier problema que tengamos o obstáculos que se presenten en nuestro camino, podemos solucionarlo juntos, porque entendí amor que no te quiero para un rato, no amor, no quiero ser pasajero.<br><br>
+            Quiero pasar el resto de mis días contigo. Por eso valoro tanto la comunicación entre nosotros y que siempre busquemos la manera de ser mejores ambos.<br><br>
+            ¡Te amo hoy y siempre mi niña!💛
+        </p>
+        <p class="phrase">Entre miles de caminos, elegimos el mismo. Melissa & Rodrigo, desde el 13/02/2022 para siempre.</p>
+    </header>
 
-        <section class="music" style="margin-top: 2em;">
-            <h2>Nuestra canción favorita</h2>
-            <audio controls loop style="width: 100%; max-width: 600px;">
-                <source src="media/music/cancion.mp3" type="audio/mpeg" />
-                Tu navegador no soporta la reproducción de audio.
-            </audio>
-        </section>
+    <section class="gallery">
+        <h2>Nuestros momentos</h2>
+        <div class="photos" id="photoGallery"></div>
+    </section>
 
-        <section class="videos" style="margin-top: 2em;">
-            <h2>Videos especiales</h2>
-            <video controls style="width: 100%; max-width: 600px; margin-top: 1em;">
-                <source src="media/videos/video1.mp4" type="video/mp4" />
-            </video>
-            <video controls style="width: 100%; max-width: 600px; margin-top: 1em;">
-                <source src="media/videos/video2.mp4" type="video/mp4" />
-            </video>
-            <video controls style="width: 100%; max-width: 600px; margin-top: 1em;">
-                <source src="media/videos/video3.mp4" type="video/mp4" />
-            </video>
-            <!-- Agrega más videos si quieres -->
-        </section>
-    </div>
+    <section class="music">
+        <h2>Nuestra canción favorita</h2>
+        <audio controls loop>
+            <source src="./media/music/cancion.mp3" type="audio/mpeg" />
+            Tu navegador no soporta la reproducción de audio.
+        </audio>
+    </section>
 
-    <script src="./media/Melissa_Rodrigo_files/script.js.descarga"></script>
+    <section class="videos">
+        <h2>Videos especiales</h2>
+        <div id="videoGallery" class="videos"></div>
+    </section>
+</div>
+
+<script>
+    // Valida la contraseña y muestra el contenido
+    function checkPassword() {
+        const input = document.getElementById('password');
+        const errorMsg = document.getElementById('error-msg');
+        const lockScreen = document.getElementById('lock-screen');
+        const mainContent = document.getElementById('main-content');
+        const password = input.value.trim();
+
+        if (password === '13/02/2022') {
+            lockScreen.style.display = 'none';
+            mainContent.style.display = 'block';
+            errorMsg.textContent = '';
+            loadPhotos();
+            loadVideos();
+        } else {
+            errorMsg.textContent = 'Contraseña incorrecta, inténtalo de nuevo.';
+        }
+    }
+
+    // Carga fotos e ignora las que no existen para evitar imagen rota
+    function loadPhotos() {
+        const photoGallery = document.getElementById('photoGallery');
+        photoGallery.innerHTML = '';
+
+        const totalPhotos = 40;
+
+        for(let i = 1; i <= totalPhotos; i++) {
+            const img = document.createElement('img');
+            img.src = `./media/Melissa_Rodrigo_files/foto${i}.jpg`;
+            img.alt = `Foto ${i} de Melissa y Rodrigo`;
+            img.title = `Foto ${i} de Melissa y Rodrigo`;
+
+            // Si la imagen no carga, la ocultamos
+            img.onerror = () => img.style.display = 'none';
+
+            photoGallery.appendChild(img);
+        }
+    }
+
+    // Carga videos y oculta los que no existen para evitar cuadro roto
+    function loadVideos() {
+        const videoGallery = document.getElementById('videoGallery');
+        videoGallery.innerHTML = '';
+
+        const totalVideos = 10;
+
+        for(let i = 1; i <= totalVideos; i++) {
+            const video = document.createElement('video');
+            video.controls = true;
+            video.preload = "metadata";
+            video.title = `Video especial ${i}`;
+            video.setAttribute('playsinline', ''); // Mejor experiencia móvil
+
+            const source = document.createElement('source');
+            source.src = `./media/videos/video${i}.mp4`;
+            source.type = 'video/mp4';
+
+            video.appendChild(source);
+
+            // Ocultar video si falla al cargar (error)
+            video.onerror = () => video.style.display = 'none';
+
+            videoGallery.appendChild(video);
+        }
+    }
+</script>
+
 </body>
 </html>
